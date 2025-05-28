@@ -1,4 +1,7 @@
-package com.example.postgresjdbc;
+package com.example.postgresjdbc.dao;
+
+import com.example.postgresjdbc.DatabaseConfig;
+import com.example.postgresjdbc.model.Department;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -110,6 +113,15 @@ public class DepartmentDao {
 
         } catch (SQLException e) {
             System.err.println("Join query failed: " + e.getMessage());
+        }
+    }
+
+    public void insert(Connection conn, Department dept) throws SQLException {
+        String sql = "INSERT INTO department (name, employee_email) VALUES (?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, dept.getName());
+            stmt.setString(2, dept.getEmployeeEmail());
+            stmt.executeUpdate();
         }
     }
 }

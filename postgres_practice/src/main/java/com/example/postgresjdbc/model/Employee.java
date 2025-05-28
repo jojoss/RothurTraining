@@ -1,4 +1,4 @@
-package com.example.postgresjdbc;
+package com.example.postgresjdbc.model;
 
 import java.util.List;
 import java.util.Objects;

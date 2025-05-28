@@ -1,4 +1,4 @@
-package com.example.postgresjdbc;
+package com.example.postgresjdbc.model;
 
 public class Department {
     private int id;

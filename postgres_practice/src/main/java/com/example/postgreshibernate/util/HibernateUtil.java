@@ -1,4 +1,4 @@
-package com.example.postgreshibernate.until;
+package com.example.postgreshibernate.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

@@ -1,4 +1,7 @@
-package com.example.postgresjdbc;
+package com.example.postgresjdbc.dao;
+
+import com.example.postgresjdbc.DatabaseConfig;
+import com.example.postgresjdbc.model.Employee;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -98,6 +101,18 @@ public class EmployeeDao {
 
         } catch (SQLException e) {
             System.err.println("Delete failed: " + e.getMessage());
+        }
+    }
+
+    public void insert(Connection conn, Employee emp) throws SQLException {
+        String sql = "INSERT INTO employee (first_name, last_name, email, password, flagged) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, emp.getFirstName());
+            stmt.setString(2, emp.getLastName());
+            stmt.setString(3, emp.getEmail());
+            stmt.setInt(4, emp.getPassword());
+            stmt.setBoolean(5, emp.getFlagged());
+            stmt.executeUpdate();
         }
     }
 }
