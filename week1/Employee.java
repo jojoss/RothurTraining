@@ -1,6 +1,6 @@
 package com.example;
 
-import java.util.Objects;
+import java.util.*;
 
 public final class Employee {
     private final String firstName;
@@ -8,13 +8,15 @@ public final class Employee {
     private final String email;
     private final Integer password;
     private final Boolean flagged;
+    private final List ids;
 
-    Employee(String firstName, String lastName, String email, Integer password, Boolean flagged) {
+    Employee(String firstName, String lastName, String email, Integer password, Boolean flagged, List ids) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.flagged = flagged;
+        this.ids = ids;
     }
 
     public String getFirstName() {
@@ -60,4 +62,12 @@ public final class Employee {
     public int hashCode() {
         return Objects.hash(getFirstName(), getLastName(), getEmail(), getPassword(), getFlagged());
     }
+
+    public void myMethod() throws RuntimeException {
+        new Error();
+    }
 }
+
+
+
+
