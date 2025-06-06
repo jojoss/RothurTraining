@@ -1,10 +1,11 @@
 org/example/Main.class
 org/example/servlet/UserServlet.class
 org/example/model/Order.class
+org/example/dao/pg/jdbc/UserPgJdbcDao.class
+org/example/servlet/OrderServlet.class
+org/example/model/User.class
 org/example/servlet/HelloServlet.class
 org/example/dao/pg/hibernate/OrderPgHibernateDao.class
-org/example/dao/pg/jdbc/UserPgJdbcDao.class
 org/example/dao/pg/jdbc/OrderPgJdbcDao.class
-org/example/servlet/OrderServlet.class
+org/example/util/DBUtil.class
 org/example/dao/pg/hibernate/UserPgHibernateDao.class
-org/example/model/User.class

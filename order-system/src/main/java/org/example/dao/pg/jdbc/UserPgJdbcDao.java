@@ -1,8 +1,8 @@
 package org.example.dao.pg.jdbc;
 
 import org.example.model.User;
+import org.example.util.DBUtil;
 
-import java.io.InputStream;
 import java.sql.*;
 import java.util.*;
 
@@ -18,16 +18,17 @@ public class UserPgJdbcDao {
      * Constructor that initializes the PostgreSQL connection using db.properties file.
      */
     public UserPgJdbcDao() {
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("db.properties")) {
-            Properties prop = new Properties();
-            prop.load(input);
-            String url = prop.getProperty("pg.url");
-            String user = prop.getProperty("pg.user");
-            String password = prop.getProperty("pg.password");
-            connection = DriverManager.getConnection(url, user, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.connection = DBUtil.getConnection();
+//        try (InputStream input = getClass().getClassLoader().getResourceAsStream("db.properties")) {
+//            Properties prop = new Properties();
+//            prop.load(input);
+//            String url = prop.getProperty("pg.url");
+//            String user = prop.getProperty("pg.user");
+//            String password = prop.getProperty("pg.password");
+//            connection = DriverManager.getConnection(url, user, password);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**

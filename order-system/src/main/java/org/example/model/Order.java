@@ -89,4 +89,15 @@ public class Order {
     public int hashCode() {
         return Objects.hash(getId(), getProduct(), getQuantity(), getPrice(), getUserId());
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", product='" + product + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", userId=" + userId +
+                '}';
+    }
 }

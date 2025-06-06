@@ -54,11 +54,12 @@
     <!-- Servlet API (required for HttpServlet, WebServlet, etc.) -->
     <!-- Scope is 'provided' because Tomcat provides this at runtime -->
     <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <artifactId>jakarta.servlet-api</artifactId>
-      <version>5.0.0</version>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.1</version>
       <scope>provided</scope>
     </dependency>
+
 
     <!-- Jackson: used for JSON serialization and deserialization -->
     <!-- ObjectMapper helps convert between Java objects and JSON -->

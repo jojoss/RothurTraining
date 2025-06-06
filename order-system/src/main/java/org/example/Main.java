@@ -2,15 +2,11 @@ package org.example;
 
 import org.example.dao.pg.jdbc.UserPgJdbcDao;
 import org.example.dao.pg.jdbc.OrderPgJdbcDao;
-import org.example.dao.pg.hibernate.UserPgHibernateDao;
-import org.example.dao.pg.hibernate.OrderPgHibernateDao;
 import org.example.model.User;
 import org.example.model.Order;
 
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,6 +18,7 @@ public class Main {
         // Insert users
         userDao.insertUser(new User("Alice", "alice@example.com"));
         userDao.insertUser(new User("Bob", "bob@gmail.com"));
+        printAllData(userDao, orderDao, "After inserting users");
 
         // Get all users
         List<User> users = userDao.getAllUsers();
@@ -40,6 +37,7 @@ public class Main {
             userToUpdate.setUsername("Alice Updated");
             userToUpdate.setEmail("alice.new@example.com");
             userDao.updateUser(userToUpdate);
+            printAllData(userDao, orderDao, "After updating user");
         }
 
         // Count users by email domain
@@ -60,6 +58,7 @@ public class Main {
             // Insert orders
             orderDao.insertOrder(new Order("Phone", 2, 299.99, userId));
             orderDao.insertOrder(new Order("Laptop", 1, 999.99, userId));
+            printAllData(userDao, orderDao, "After inserting orders");
 
             // Get all orders
             List<Order> orders = orderDao.getAllOrders();
@@ -77,6 +76,7 @@ public class Main {
                 Order toUpdate = orders.get(0);
                 toUpdate.setQuantity(5);
                 orderDao.updateOrder(toUpdate);
+                printAllData(userDao, orderDao, "After updating order");
             }
 
             // Get orders by user ID
@@ -103,10 +103,21 @@ public class Main {
                 orderDao.deleteOrder(o.getId());
                 System.out.println("Deleted order ID: " + o.getId());
             }
+            printAllData(userDao, orderDao, "After deleting user's orders");
 
             // Now it's safe to delete the user
             userDao.deleteUser(userId);
             System.out.println("Deleted user ID: " + userId);
+            printAllData(userDao, orderDao, "After deleting user");
         }
+    }
+
+    private static void printAllData(UserPgJdbcDao userDao, OrderPgJdbcDao orderDao, String title) {
+        System.out.println("\n========== " + title + " ==========");
+        System.out.println("Current Users:");
+        userDao.getAllUsers().forEach(System.out::println);
+        System.out.println("Current Orders:");
+        orderDao.getAllOrders().forEach(System.out::println);
+        System.out.println("========================================\n");
     }
 }
