@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>API Tester - User & Order</title>
+  <style>
+    body { font-family: sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; }
+    textarea, input { width: 100%; margin: 5px 0; }
+    button { margin: 10px 0; padding: 8px 12px; }
+    pre { background: #f0f0f0; padding: 10px; white-space: pre-wrap; }
+    .section { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+<h1>🔧 User & Order API Tester</h1>
+
+<div class="section">
+  <h2>User API</h2>
+  <input id="userId" placeholder="User ID (for GET/DELETE)" />
+  <textarea id="userPayload" placeholder='JSON for POST/PUT (e.g. {"username":"Tom","email":"tom@mail.com"})' rows="4"></textarea>
+  <button onclick="sendRequest('GET', '/users')">GET /users</button>
+  <button onclick="sendRequest('GET', '/users/' + userId.value)">GET /users/{id}</button>
+  <button onclick="sendRequest('GET', '/users/count')">GET /users/count</button>
+  <button onclick="sendRequest('GET', '/users/stats')">GET /users/stats</button>
+  <button onclick="sendRequest('GET', '/users/with-orders')">GET /users/with-orders</button>
+  <button onclick="sendRequest('POST', '/users', userPayload.value)">POST /users</button>
+  <button onclick="sendRequest('PUT', '/users', userPayload.value)">PUT /users</button>
+  <button onclick="sendRequest('DELETE', '/users/' + userId.value)">DELETE /users/{id}</button>
+</div>
+
+<div class="section">
+  <h2>Order API</h2>
+  <input id="orderId" placeholder="Order ID (for GET/DELETE)" />
+  <input id="orderUserId" placeholder="User ID (for /user/{id})" />
+  <textarea id="orderPayload" placeholder='JSON for POST/PUT (e.g. {"product":"Phone","quantity":1,"price":999.99,"userId":1})' rows="4"></textarea>
+  <button onclick="sendRequest('GET', '/orders')">GET /orders</button>
+  <button onclick="sendRequest('GET', '/orders/' + orderId.value)">GET /orders/{id}</button>
+  <button onclick="sendRequest('GET', '/orders/user/' + orderUserId.value)">GET /orders/user/{userId}</button>
+  <button onclick="sendRequest('GET', '/orders/stats')">GET /orders/stats</button>
+  <button onclick="sendRequest('GET', '/orders/top')">GET /orders/top</button>
+  <button onclick="sendRequest('GET', '/orders/total-sales')">GET /orders/total-sales</button>
+  <button onclick="sendRequest('POST', '/orders', orderPayload.value)">POST /orders</button>
+  <button onclick="sendRequest('PUT', '/orders', orderPayload.value)">PUT /orders</button>
+  <button onclick="sendRequest('DELETE', '/orders/' + orderId.value)">DELETE /orders/{id}</button>
+</div>
+
+<h3>🔍 Response</h3>
+<pre id="response"></pre>
+
+<script>
+  async function sendRequest(method, path, body = null) {
+    try {
+      const res = await fetch(path, {
+        method,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: ['POST', 'PUT'].includes(method) ? body : null
+      });
+      const text = await res.text();
+      document.getElementById('response').innerText = `Status: ${res.status}\n\n` + text;
+    } catch (err) {
+      document.getElementById('response').innerText = `❌ Error: ${err}`;
+    }
+  }
+</script>
+</body>
+</html>
