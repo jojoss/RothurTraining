@@ -8,33 +8,57 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service // 告诉 Spring 这是一个业务逻辑层的组件
+/**
+ * This service handles business logic related to User operations.
+ */
+@Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final LogService logService;
 
-    // 使用构造器注入（推荐），Spring 会自动注入依赖的 Repository 实现类
+    /**
+     * Constructor injection for UserRepository and LogService.
+     * Spring will automatically inject the dependencies.
+     */
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, LogService logService) {
         this.userRepository = userRepository;
+        this.logService = logService;
     }
 
-    // 获取所有用户
+    /**
+     * Fetch all users from the database.
+     */
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        logService.log("Fetched all users. Total: " + users.size());
+        return users;
     }
 
-    // 添加用户
+    /**
+     * Save a new user to the database.
+     */
     public User createUser(User user) {
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        logService.log("Created user with ID: " + savedUser.getId());
+        return savedUser;
     }
 
-    // 你可以继续扩展：deleteUser, findById 等
+    /**
+     * Delete a user by their ID.
+     */
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+        logService.log("Deleted user with ID: " + id);
     }
 
+    /**
+     * Find a user by their ID.
+     */
     public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
+        logService.log("Fetched user with ID: " + id + ". Found: " + user.isPresent());
+        return user;
     }
 }

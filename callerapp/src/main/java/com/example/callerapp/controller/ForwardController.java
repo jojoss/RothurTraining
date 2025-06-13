@@ -1,6 +1,7 @@
 package com.example.callerapp.controller;
 
 import com.example.callerapp.service.ForwardService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,4 +34,9 @@ public class ForwardController {
         forwardService.deleteUserById(id);
     }
 
+    // Test endpoint to verify JWT protection
+    @GetMapping("/test")
+    public ResponseEntity<String> protectedTest() {
+        return ResponseEntity.ok("This is a protected endpoint. You are authenticated!");
+    }
 }
